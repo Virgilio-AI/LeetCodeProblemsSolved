@@ -1,4 +1,5 @@
 *.un~
 *.cpp~
 *.exe
+*.swp
 .vscode
