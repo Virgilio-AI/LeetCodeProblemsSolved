@@ -15,31 +15,26 @@ public:
 	//because if there is a smaller element we already found the next greater element of that smaller 
 	//element and we just need to 
     vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
-	    int n = nums2.size();
-	    int m = nums1.size();
-	    vector<int> res(m,-1);
+	    vector<int> ans((int)nums1.size(),-1);
+	    unordered_map<int,int> ump;
 	    stack<int> st;
-	    unordered_map<int,int> umap;
-	    for(int i=0;i<n;i++)
+	    for(int i=0;i<(int)nums2.size();i++)
 	    {
-		    int element = nums2[i];
-		    while(!st.empty() && element > st.top())
+		    while(!st.empty() && nums2[st.top()] < nums2[i])
 		    {
-			    umap[st.top()] = element;
+			    ump[nums2[st.top()]] = nums2[i];
 			    st.pop();
 		    }
-		    st.push(element);
+		    st.push(i);
 	    }
-	    for(int i=0;i<m;i++)
+	    for(int i=0;i<(int)nums1.size() ; i++)
 	    {
-		    int element = nums1[i];
-		    if(umap.find(element) != umap.end())
+		    if(ump[nums1[i]])
 		    {
-			    res[i] = umap[element];
+			    ans[i]=ump[nums1[i]];
 		    }
-
-	    }
-	    return res;
+	    }	    
+	    return ans;	    
     }
 };
 
